@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f5ff">
+  <title>PrepPath | My Placement Journey</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span class="brand-mark">✦</span><span>PrepPath</span></div>
+    <div class="profile-mini">
+      <div class="avatar">P</div>
+      <div><strong>My preparation</strong><small>Placement target · 2028</small></div>
+    </div>
+    <p class="nav-caption">WORKSPACE</p>
+    <nav class="navigation">
+      <button class="nav-item active" data-page="dashboard"><span>▦</span>Dashboard</button>
+      <button class="nav-item" data-page="planner"><span>◷</span>100-Day Planner</button>
+      <button class="nav-item" data-page="dsa"><span>⌘</span>Java DSA</button>
+      <button class="nav-item" data-page="web"><span>⌘</span>Web Development</button>
+      <button class="nav-item" data-page="projects"><span>▣</span>My Projects</button>
+      <button class="nav-item" data-page="english"><span>✎</span>English Practice</button>
+      <button class="nav-item" data-page="fundamentals"><span>▤</span>CS Fundamentals</button>
+      <button class="nav-item" data-page="analytics"><span>▥</span>Analytics</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="local-note"><span>🔒</span><div><b>Your data stays here</b><small>Saved in this browser only.</small></div></div>
+      <button id="exportBtn" class="utility-btn">↓ Export my progress</button>
+      <label class="utility-btn import-label">↑ Import progress<input type="file" id="importFile" accept="application/json"></label>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+      <div><div class="eyebrow" id="pageEyebrow">YOUR PLACEMENT JOURNEY</div><h1 id="pageTitle">Good to see you!</h1></div>
+      <div class="top-actions"><span class="target-tag">🎓 Target: 2028</span><span class="today-date" id="todayDate"></span></div>
+    </header>
+
+    <section class="page active" id="page-dashboard">
+      <div class="welcome-banner">
+        <div><span class="banner-kicker">YOUR NEXT CHAPTER STARTS NOW</span><h2>One day at a time.<br><em>One step closer to your goal.</em></h2><p>Build consistency in DSA, development and communication.</p></div>
+        <div class="banner-art">🚀</div>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Overall progress</span><span class="stat-icon purple">◉</span></div><div class="stat-number" id="overallPercent">0%</div><div class="progress"><span id="overallBar"></span></div><small id="overallCaption">Let's get started!</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Days completed</span><span class="stat-icon peach">☑</span></div><div class="stat-number" id="daysCompleted">0/100</div><small>Daily planner check-ins</small></article>
+        <article class="stat-card"><div class="stat-top"><span>DSA problems</span><span class="stat-icon blue">⌘</span></div><div class="stat-number" id="dsaSolved">0</div><small>Problems marked as solved</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Projects completed</span><span class="stat-icon green">▣</span></div><div class="stat-number" id="projectsCompleted">0/7</div><small>Portfolio-building milestones</small></article>
+      </div>
+      <div class="dashboard-grid">
+        <section class="panel today-panel">
+          <div class="section-heading"><div><span class="eyebrow">FOCUS FOR TODAY</span><h2>Today's study plan</h2></div><button class="text-button" data-goto="planner">View planner ↗</button></div>
+          <div id="todayTasks" class="today-tasks"></div>
+        </section>
+        <section class="panel week-panel">
+          <div class="section-heading"><div><span class="eyebrow">STAY CONSISTENT</span><h2>This week's focus</h2></div></div>
+          <div id="weekFocus"></div>
+          <div class="weekly-target"><span>Weekly study target</span><strong>25 hours</strong></div>
+          <p class="muted small">Weekdays: 3 hours · Weekends: 5 hours</p>
+        </section>
+      </div>
+      <section class="panel quote-panel"><div class="quote-symbol">✧</div><div><b>A reminder for you</b><p>You don't have to be perfect every day. Just return to your plan, even after a break.</p></div></section>
+    </section>
+
+    <section class="page" id="page-planner">
+      <div class="page-intro"><div><span class="eyebrow">100 DAYS OF CONSISTENCY</span><h2>Your daily planner</h2><p>Follow the plan, tick off what you finish and keep moving.</p></div><div class="progress-pill" id="plannerProgress">0 of 100 days</div></div>
+      <div class="filter-row"><select id="weekFilter"><option value="all">All weeks</option></select><select id="plannerStatus"><option value="all">All days</option><option value="done">Completed</option><option value="pending">Not completed</option></select></div>
+      <div id="dayList" class="day-list"></div>
+    </section>
+
+    <section class="page" id="page-dsa">
+      <div class="page-intro"><div><span class="eyebrow">JAVA · PROBLEM SOLVING</span><h2>DSA preparation</h2><p>Build strong problem-solving skills for SDE interviews.</p></div><div class="progress-pill" id="dsaProgress">0 solved</div></div>
+      <div class="stats-grid compact-stats"><article class="stat-card"><span class="muted">Problems solved</span><div class="stat-number" id="dsaSolvedBig">0</div></article><article class="stat-card"><span class="muted">Topics completed</span><div class="stat-number" id="dsaTopicsDone">0/14</div></article><article class="stat-card"><span class="muted">Target</span><div class="stat-number">100+</div><small>Practice problems</small></article></div>
+      <div class="panel"><div class="section-heading"><div><span class="eyebrow">TOPIC CHECKLIST</span><h2>14-week DSA roadmap</h2></div></div><div id="dsaTopics" class="topic-grid"></div></div>
+      <div class="panel"><div class="section-heading"><div><span class="eyebrow">PRACTICE LOG</span><h2>LeetCode tracker</h2></div><button class="primary-btn" id="addProblemBtn">+ Add problem</button></div>
+        <form id="problemForm" class="inline-form hidden"><input id="problemName" placeholder="Problem name" required><select id="problemDifficulty"><option>Easy</option><option>Medium</option><option>Hard</option></select><input id="problemLink" type="url" placeholder="LeetCode URL (optional)"><button class="primary-btn" type="submit">Save</button></form>
+        <div id="problemList" class="problem-list"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-web">
+      <div class="page-intro"><div><span class="eyebrow">FULL-STACK DEVELOPMENT</span><h2>MERN stack roadmap</h2><p>Learn frontend and backend step by step.</p></div><div class="progress-pill" id="webProgress">0% complete</div></div>
+      <div class="panel"><div class="section-heading"><div><span class="eyebrow">LEARNING PATH</span><h2>14-week web development plan</h2></div></div><div id="webTopics" class="web-roadmap"></div></div>
+    </section>
+
+    <section class="page" id="page-projects">
+      <div class="page-intro"><div><span class="eyebrow">BUILD YOUR PORTFOLIO</span><h2>My projects</h2><p>Learn by building. Update each project as you make progress.</p></div><div class="progress-pill" id="projectProgress">0/7 completed</div></div>
+      <div id="projectGrid" class="project-grid"></div>
+    </section>
+
+    <section class="page" id="page-english">
+      <div class="page-intro"><div><span class="eyebrow">COMMUNICATION SKILLS</span><h2>English practice</h2><p>Practise expressing your thoughts clearly and confidently.</p></div><div class="progress-pill" id="englishProgress">0 sessions</div></div>
+      <div class="panel"><div class="section-heading"><div><span class="eyebrow">DAILY HABITS</span><h2>My practice checklist</h2></div></div><div id="englishHabits" class="habit-list"></div></div>
+      <div class="panel"><div class="section-heading"><div><span class="eyebrow">WEEKLY SPEAKING TOPICS</span><h2>Speak about these topics</h2></div></div><div id="speakingTopics" class="topic-grid"></div></div>
+      <div class="panel"><div class="section-heading"><div><span class="eyebrow">INTERVIEW PREPARATION</span><h2>HR questions</h2></div></div><div id="hrQuestions" class="question-list"></div></div>
+    </section>
+
+    <section class="page" id="page-fundamentals">
+      <div class="page-intro"><div><span class="eyebrow">CORE COMPUTER SCIENCE</span><h2>CS fundamentals</h2><p>Revise the concepts commonly asked in technical interviews.</p></div><div class="progress-pill" id="fundamentalsProgress">0% complete</div></div>
+      <div id="fundamentalsList" class="fundamentals-grid"></div>
+    </section>
+
+    <section class="page" id="page-analytics">
+      <div class="page-intro"><div><span class="eyebrow">YOUR GROWTH</span><h2>Progress analytics</h2><p>See your consistency and celebrate small improvements.</p></div></div>
+      <div class="stats-grid"><article class="stat-card"><span class="muted">Overall completion</span><div class="stat-number" id="analyticsOverall">0%</div></article><article class="stat-card"><span class="muted">Tasks checked</span><div class="stat-number" id="analyticsTasks">0</div></article><article class="stat-card"><span class="muted">Study areas active</span><div class="stat-number">5</div></article></div>
+      <div class="chart-grid"><section class="panel"><h2>Weekly planner progress</h2><canvas id="weeklyChart"></canvas></section><section class="panel"><h2>Progress by area</h2><canvas id="areaChart"></canvas></section></div>
+      <div class="panel"><div class="section-heading"><h2>Keep your data safe</h2></div><p class="muted">Your progress is stored in this browser. Export a backup regularly, especially before clearing browser data or changing computers.</p><button class="primary-btn" id="exportBtn2">↓ Export backup</button></div>
+    </section>
+    <footer>PrepPath · Your personal learning space · Saved locally in this browser</footer>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
